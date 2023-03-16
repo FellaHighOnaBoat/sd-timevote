@@ -1,4 +1,5 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore, ESX = exports['qb-core']:GetCoreObject(), exports["es_extended"]:getSharedObject()
+
 
 local voteActive = false
 local hasVoted = false
@@ -24,7 +25,11 @@ AddEventHandler('sd-votetime:client:setTimeToDay', function()
             args = {'Vote Time', message}
         })
     elseif Config.NotificationType == 'notification' then
-        QBCore.Functions.Notify(message, 'success', 5000)
+        if Config.Framework == 'QB' then
+            QBCore.Functions.Notify(message, 'success', 5000)
+        elseif Config.Framework == 'ESX' then
+            ESX.ShowNotification(message, 5000, 'success')
+        end
     end
     Wait(3000)
     TriggerServerEvent('sd-votetime:server:resetVotes')
@@ -47,7 +52,11 @@ AddEventHandler('sd-votetime:client:voteFailed', function()
             args = {'Vote Time', message}
         })
     elseif Config.NotificationType == 'notification' then
-        QBCore.Functions.Notify(message, 'error', 5000)
+        if Config.Framework == 'QB' then
+            QBCore.Functions.Notify(message, 'error', 5000)
+        elseif Config.Framework == 'ESX' then
+            ESX.ShowNotification(message, 5000, 'error')
+        end
     end
     Wait(3000)
     TriggerServerEvent('sd-votetime:server:resetVotes')
@@ -79,7 +88,11 @@ RegisterCommand('yes', function()
                 args = {'Vote Time', message}
             })
         elseif Config.NotificationType == 'notification' then
-            QBCore.Functions.Notify(message, 'success', 5000)
+            if Config.Framework == 'QB' then
+                QBCore.Functions.Notify(message, 'success', 5000)
+            elseif Config.Framework == 'ESX' then
+                ESX.ShowNotification(message, 5000, 'success')
+            end
         end
     elseif not voteActive then
         local message = 'There is no vote currently active.'
@@ -101,7 +114,11 @@ RegisterCommand('yes', function()
                 args = {'Vote Time', message}
             })
         elseif Config.NotificationType == 'notification' then
-            QBCore.Functions.Notify(message, 'error', 5000)
+            if Config.Framework == 'QB' then
+                QBCore.Functions.Notify(message, 'error', 5000)
+            elseif Config.Framework == 'ESX' then
+                ESX.ShowNotification(message, 5000, 'error')
+            end
         end
     end
 end)
@@ -118,7 +135,11 @@ RegisterCommand('no', function()
                 args = {'Vote Time', message}
             })
         elseif Config.NotificationType == 'notification' then
-            QBCore.Functions.Notify(message, 'success', 5000)
+            if Config.Framework == 'QB' then
+                QBCore.Functions.Notify(message, 'success', 5000)
+            elseif Config.Framework == 'ESX' then
+                ESX.ShowNotification(message, 5000, 'success')
+            end
         end
     elseif not voteActive then
         local message = 'There is no vote currently active.'
@@ -129,7 +150,11 @@ RegisterCommand('no', function()
                 args = {'Vote Time', message}
             })
         elseif Config.NotificationType == 'notification' then
-            QBCore.Functions.Notify(message, 'error', 5000)
+            if Config.Framework == 'QB' then
+                QBCore.Functions.Notify(message, 'error', 5000)
+            elseif Config.Framework == 'ESX' then
+                ESX.ShowNotification(message, 5000, 'error')
+            end
         end
     else
         local message = 'You have already voted. You cannot vote again.'
@@ -140,7 +165,11 @@ RegisterCommand('no', function()
                 args = {'Vote Time', message}
             })
         elseif Config.NotificationType == 'notification' then
-            QBCore.Functions.Notify(message, 'error', 5000)
+            if Config.Framework == 'QB' then
+                QBCore.Functions.Notify(message, 'error', 5000)
+            elseif Config.Framework == 'ESX' then
+                ESX.ShowNotification(message, 5000, 'error')
+            end
         end
     end
 end)

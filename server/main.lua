@@ -1,6 +1,7 @@
 local voteActive = false
 local yesVotes = 0
 local noVotes = 0
+ESX = exports["es_extended"]:getSharedObject()
 
 local function startVote()
     if not voteActive then
@@ -13,14 +14,23 @@ local function startVote()
             print('chatmessage')
             TriggerClientEvent('chat:addMessage', -1, {color = {255, 255, 0}, multiline = true, args = {'Vote Time', message}})
         elseif Config.NotificationType == 'notification' then
-            TriggerClientEvent('QBCore:Notify', -1, message, "success", 5000)
+            if Config.Framework == 'QB' then
+                TriggerClientEvent('QBCore:Notify', -1, message, "success", 5000)
+            elseif Config.Framework == 'ESX' then
+                local xPlayer = ESX.GetPlayerFromId(source)
+                xPlayer.showNotification(message, false, false, 140)
+            end
         end
         TriggerClientEvent('sd-votetime:client:startVote', -1)
         SetTimeout(60000, function()
             voteActive = false
             if yesVotes > noVotes then
-                exports["qb-weathersync"]:setTime(8, 10)
-                TriggerClientEvent('sd-votetime:client:setTimeToDay', -1)
+                if Config.Framework == 'QB' then
+                    exports["qb-weathersync"]:setTime(8, 10)
+                    TriggerClientEvent('sd-votetime:client:setTimeToDay', -1)
+                elseif Config.Framework == 'ESX' then
+                    TriggerClientEvent('vSync:updateTime', -1, baseTime, timeOffset, freezeTime)
+                end
             else
                 TriggerClientEvent('sd-votetime:client:voteFailed', -1)
             end
