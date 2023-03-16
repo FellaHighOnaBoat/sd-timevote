@@ -39,6 +39,25 @@ AddEventHandler('sd-votetime:client:setTimeToDay', function()
     end)
 end)
 
+local baseTime = 0
+local hour = 0
+local minute = 0
+local timer = 0
+local timeOffset = 0
+RegisterNetEvent('sd-votetime:setdaybro')
+AddEventHandler('sd-votetime:setdaybro', function()
+    local NewBaseTime = baseTime
+    if GetGameTimer() - 500  > timer then
+        newBaseTime = newBaseTime + 0.25
+        timer = GetGameTimer()
+        
+    end
+    baseTime = newBaseTime
+    hour = math.floor(((baseTime+timeOffset)/60)%24)
+    minute = math.floor((baseTime+timeOffset)%60)
+    NetworkOverrideClockTime(hour, minute, 0)
+end)
+
 RegisterNetEvent('sd-votetime:client:voteFailed')
 AddEventHandler('sd-votetime:client:voteFailed', function()
     voteHasAppeared = true

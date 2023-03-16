@@ -3,6 +3,7 @@ local yesVotes = 0
 local noVotes = 0
 ESX = exports["es_extended"]:getSharedObject()
 
+
 local function startVote()
     if not voteActive then
         voteActive = true
@@ -29,7 +30,7 @@ local function startVote()
                     exports["qb-weathersync"]:setTime(8, 10)
                     TriggerClientEvent('sd-votetime:client:setTimeToDay', -1)
                 elseif Config.Framework == 'ESX' then
-                    TriggerClientEvent('vSync:updateTime', -1, baseTime, timeOffset, freezeTime)
+                    TriggerClientEvent('sd-votetime:setdaybro')
                 end
             else
                 TriggerClientEvent('sd-votetime:client:voteFailed', -1)
