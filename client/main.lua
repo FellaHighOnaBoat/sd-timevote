@@ -1,4 +1,5 @@
-local QBCore, ESX = exports['qb-core']:GetCoreObject(), exports["es_extended"]:getSharedObject()
+local QBCore = exports['qb-core']:GetCoreObject()
+ESX = exports["es_extended"]:getSharedObject()
 
 
 local voteActive = false
